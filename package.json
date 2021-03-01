@@ -1,5 +1,5 @@
 {
-  "name": "ethereumprice-csv-converter",
+  "name": "crypto-csv-converter",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -13,5 +13,8 @@
     "json2csv": "^3.11.5",
     "moment": "^2.20.1",
     "request": "^2.83.0"
+  },
+  "bin": {
+    "crypto-csv-converter": "./cli.js"
   }
 }
