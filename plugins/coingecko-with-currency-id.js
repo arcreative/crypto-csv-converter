@@ -10,12 +10,13 @@ module.exports = function(currencyId, callback) {
     JSON.parse(res.body).stats.forEach(function (item) {
       var date = moment(item[0]).format('l');
       data[date] = {
+        currency_id: currencyId,
         date: date,
         high: item[1],
         low: item[1],
         open: item[1],
         close: item[1],
-        volume: 1
+        volume: 1,
       };
     });
 
