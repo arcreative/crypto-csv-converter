@@ -5,7 +5,7 @@ const json2csv = require('json2csv');
 
 var argv = require('minimist')(process.argv.slice(2));
 const pluginFileName = argv.p || argv.plugin || 'coingecko';
-const coinsFileName = argv.c || argv.coins || 'coins.json';
+const coinsFileName = argv.c || argv.coins || 'coins.js';
 
 let plugin;
 try {
@@ -24,10 +24,19 @@ try {
 }
 
 // Process pairs
-coins.forEach(function(pair) {
-  plugin(pair[0], function(data) {
-    var data = Object.values(data);
-    var output = json2csv({ data: data, fields: Object.keys(data[0]) });
-    fs.writeFileSync('./exports/export-' + pair[1] + '.csv', output);
-  });
+coins.forEach(function(symbol, idx) {
+  
+  setTimeout(function() {
+    plugin(symbol, function(err, data) {
+
+      // Just display the error, but continue
+      if (err) {
+        return console.log(err);
+      }
+
+      var data = Object.values(data);
+      var output = json2csv({ data: data, fields: Object.keys(data[0]) });
+      fs.writeFileSync('./exports/export-' + symbol + '.csv', output);
+    });
+  }, idx * 2000);
 });
